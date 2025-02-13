@@ -1,0 +1,154 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fde2e4;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* เพิ่มการจัดเรียงซองจดหมายให้เป็นแถวข้างๆ กัน */
+.envelopes {
+  display: flex;
+  gap: 20px;
+}
+
+/* ฝาพับซอง */
+.envelope .flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: #ff8a80;
+  clip-path: polygon(0 0, 100% 0, 50% 70%);
+  transition: transform 0.5s ease-in-out;
+  transform-origin: top;
+  z-index: 3;
+}
+
+/* ปีกข้างของซอง */
+.envelope .side {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff8a80;
+  clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+  z-index: 1;
+}
+
+/* เอฟเฟกต์เปิดซอง */
+.envelope.open .flap {
+  transform: rotateX(180deg);
+}
+
+.envelope {
+  position: relative;
+  width: 520px;
+  height: 250px;
+  background: #ff6f61;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease-in-out;
+  overflow: hidden;
+  box-shadow: -15px 0px 30px rgba(0, 0, 0, 0.3), 15px 0px 30px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.letter {
+  position: absolute;
+  width: 400px;
+  height: 320px;
+  background: white;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.7s ease-in-out;
+  
+  /* ซ่อนจดหมายไว้ด้านหลังซอง */
+  transform: translateY(80px);
+  clip-path: inset(100% 0 0 0);  /* ซ่อนทั้งหมด */
+  
+  border-radius: 5px;
+  z-index: 0; /* อยู่ข้างหลังซอง */
+  opacity: 0; /* ซ่อนจดหมาย */
+  
+  /* เพิ่มฟังก์ชันการเลื่อน */
+  overflow-y: auto; /* เลื่อนแนวตั้ง */
+  max-height: 200px; /* กำหนดความสูงสูงสุดของพื้นที่ที่สามารถเลื่อน */
+}
+
+/* ตกแต่งแถบเลื่อน */
+.letter::-webkit-scrollbar {
+  width: 8px; /* ความกว้างของแถบเลื่อน */
+  background-color: #f1f1f1; /* สีพื้นหลังของแถบเลื่อน */
+  border-radius: 5px; /* มุมโค้งของแถบเลื่อน */
+}
+
+/* ตกแต่งส่วนที่เป็นตัวเลื่อน */
+.letter::-webkit-scrollbar-thumb {
+  background-color: #ff4081; /* สีของตัวเลื่อน */
+  border-radius: 10px; /* มุมโค้งของตัวเลื่อน */
+  border: 2px solid #f1f1f1; /* ขอบรอบตัวเลื่อน */
+}
+
+/* เพิ่มผลเมื่อแถบเลื่อนถูกโฮเวอร์ */
+.letter::-webkit-scrollbar-thumb:hover {
+  background-color: #ff1e5e; /* เปลี่ยนสีเมื่อโฮเวอร์ */
+}
+
+
+.envelope.open .letter {
+  transform: translateY(-30px);
+  clip-path: inset(20% 0 0 0);
+  z-index: 2;
+  opacity: 1;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+}
+
+.open-btn {
+  background: #ff4081;
+  color: white;
+  border-radius: 5px;
+}
+
+.close-btn {
+  background: white;
+  border: 2px solid #ff4081;
+  color: #ff4081;
+  border-radius: 5px;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
